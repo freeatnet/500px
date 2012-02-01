@@ -13,7 +13,10 @@ module F00px
     end
 
     def get(path, params={})
-      response = connection.get("/v1/#{path}")
+      response = connection.get do |req|
+        req.url "/v1/#{path}"
+        req.params = params
+      end
       response.body
     end
 

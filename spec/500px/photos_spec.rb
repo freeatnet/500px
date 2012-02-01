@@ -8,7 +8,10 @@ describe F00px::Photos do
   
   describe 'photos' do
     it 'should return a list of photos' do
-      raise @client.photos.inspect
+      photos = @client.photos(:feature => 'user', :username => 'tye')
+      for photo in photos
+        puts "#{photo.name} by #{photo.user.firstname} #{photo.user.lastname}"
+      end
     end
   end
 end

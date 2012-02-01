@@ -13,4 +13,9 @@ require '500px/request'
 require '500px/connection'
 require '500px/photos'
 
+require '500px/base'
+require '500px/collection'
+require '500px/photo'
+require '500px/user'
+
 require '500px/client'
