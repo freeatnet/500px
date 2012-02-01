@@ -6,12 +6,19 @@ describe F00px::Photos do
                         :secret => 'PLETDzuNrbjg5AgjtONWzj7fCBHfJRoC9ofwcknX')
   end
   
-  describe 'photos' do
-    it 'should return a list of photos' do
-      photos = @client.photos(:feature => 'user', :username => 'tye')
-      for photo in photos
-        puts "#{photo.name} by #{photo.user.firstname} #{photo.user.lastname}"
-      end
+  describe '.photos' do
+    it 'should return a collection of photos' do
+      stub_get("/v1/photos").
+        to_return(:body => fixture("photos_fresh.json"),
+                  :headers => {:content_type => "application/json; charset=utf-8"})
+      photos = @client.photos
+      photos.should be_kind_of(F00px::Collection)
+      photos.any?.should be_true
+      photos.first.should be_kind_of(F00px::Photo)
     end
+  end
+
+  describe '.user_photos' do
+
   end
 end
