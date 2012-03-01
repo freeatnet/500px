@@ -5,8 +5,15 @@ module F00px
     end
   end
 end
+class Array #:nodoc:
+  def extract_options!
+    last.is_a?(::Hash) ? pop : {}
+  end
+end
 
 require 'json'
+
+require '500px/exception'
 
 require '500px/config'
 require '500px/request'

@@ -3,6 +3,7 @@ module F00px
     def initialize(attrs={})
       Config.key = attrs[:key]
       Config.secret = attrs[:secret]
+      Config.url = attrs[:url]
     end
 
     def credentials

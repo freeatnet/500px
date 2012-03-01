@@ -10,7 +10,7 @@ module F00px
       @options[name]
     end
 
-    def method_missing(name)
+    def method_missing(name,*args)
       @options[name.to_s]
     end
   end

@@ -6,7 +6,7 @@ module F00px
           :accept => 'application/json',
           :user_agent => '500px gem'
         },
-        :url => 'http://api.500px.com:3000/'
+        :url => Config.url
       }
       Faraday.new(options) do |builder|
         builder.use F00px::Request, credentials

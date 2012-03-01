@@ -3,29 +3,32 @@ module F00px
     def photos(params={})
       response = get('photos',params)
 
-      Collection.new(response,:photos) do |photo|
-        F00px::Photo.new(photo)
-      end
+      Collection.new(response,
+                     :collection => :photos,
+                     :request_path => 'photos',
+                     :request_params => params,
+                     :client => self,
+                     :class => F00px::Photo)
     end
 
-    def user_photos(user)
+    def user_photos(user,*args)
       if user.kind_of?(User)
-        response = get('photos',
-                       :feature => 'user',
-                       :username => user.username)
+        options = { :feature => 'user',
+                    :username => user.username }
       elsif user =~ /^\d+$/
-        response = get('photos',
-                       :features => 'user',
-                       :user_id => user)
+        options = { :features => 'user',
+                    :user_id => user }
       else
-        response = get('photos',
-                       :feature => 'user',
-                       :username => user)
+        options = { :feature => 'user',
+                    :username => user }
       end
 
-      Collection.new(response,:photos) do |photo|
-        F00px::Photo.new(photo)
-      end
+      photos(args.extract_options!.merge(options))
+    end
+
+    def popular_photos(*args)
+      photos args.extract_options!.merge(
+        :feature => 'popular')
     end
   end
 end
